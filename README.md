@@ -11,7 +11,7 @@ This readme file serves as a guidance in determining the instructions on how to 
 * Store the received data in an RDBMS __(AWS RDS)__
 * Create a view that will essentially format the raw ingested table (__country_relation_revised__)
 * Create a view to generate the relationships of each country (__country_relation_score__)
-* Determine Click History from a specified requestor and store in the database (__click_history__)
+* Determine click history from a specified requestor and store in the database (__click_history__)
 * Create an interface with pagination support for the 3 core tables/views:
   * Country Relationship Scores
   * Country Relation RAW
