@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <script src="{{ url_for('static', filename='js/table.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+<script type="text/javascript">
+    genDynamicColName('{{ table_mode }}');
+</script>
+<div class="content bg-light text-dark">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">id</th>
+                <th scope="col">User IP Address</th>
+                <th scope="col">Date Created</th>
+                <th scope="col">Request Type</th>
+                <th scope="col">Request Referrer</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for row in data.items %}
+            <tr>
+                <td>{{ row.id }}</td>
+                <td>{{ row.user_ip_address }}</td>
+                <td>{{ row.date_created }}</td>
+                <td>{{ row.request_type }}</td>
+                <td>{{ row.request_referrer }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="content-below">
+    <form action="/table/{{ table_mode }}" method="POST">
+        <div class="container">
+            <div class="form-group">
+                <div id="InputsWrapper">
+                    <div>
+                        <button class="btn btn-dark" type="button" name="add" id="AddFilter">Add Filter</button>
+                        <input class="btn btn-primary" type="submit" name="action" value="Search Data" >
+                        {% for page in data.iter_pages() %}
+                            {% if page %}
+                                <a class="btn btn-info" href="{{ url_for(table_mode, page_num=page) }}">{{ page }}</a>
+                            {% else %}
+                                ...
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <br>
+                    <br>
+                    <div class="input-group row">
+                        <div class="col-sm-6"><input class="form-control" type="text" name="field_1" placeholder="Enter column value" /></div>
+                        <select name="select_expr_1" id="select_expr_1" class="form-select" aria-label=".form-select-sm example">
+                            <option value="=">=</option>
+                            <option value="in">in</option>
+                            <option value="like">like</option>
+                            <option value=">=">>=</option>
+                            <option value="<="><=</option>
+                            <option value=">">></option>
+                            <option value="<"><</option>
+                        </select>
+                        <select name="select_col_1" id="select_col_1" class="form-select" aria-label=".form-select-sm example">
+                            <option value="id">id</option>
+                            <option value="user_ip_address">user_ip_address</option>
+                            <option value="date_created">date_created</option>
+                            <option value="request_type">request_type</option>
+                            <option value="request_referrer">request_referrer</option>
+                        </select>
+                    </div>
+                </div>
+                <br>
+                <!-- Order Wrapper -->
+                <div id="OrderWrapper">
+                    <div class="input-group mt-4">
+                        <div>
+                            <select name="order_col_1" id="order_col_1" class="form-select" aria-label=".form-select-sm example">
+                                <option value="id">id</option>
+                                <option value="user_ip_address">user_ip_address</option>
+                                <option value="date_created">date_created</option>
+                                <option value="request_type">request_type</option>
+                                <option value="request_referrer">request_referrer</option>
+                            </select>
+                        </div>
+                        <div>
+                            <select name="order_sort_1" id="order_sort_1" class="form-select" aria-label=".form-select-sm example">
+                                <option value="desc">Descending</option>
+                                <option value="asc">Ascending</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group mt-4">
+                        <div>
+                            <select name="order_col_2" id="order_col_2" class="form-select" aria-label=".form-select-sm example">
+                                <option value="id">id</option>
+                                <option value="user_ip_address">user_ip_address</option>
+                                <option value="date_created">date_created</option>
+                                <option value="request_type">request_type</option>
+                                <option value="request_referrer">request_referrer</option>
+                            </select>
+                        </div>
+                        <div>
+                            <select name="order_sort_2" id="order_sort_2" class="form-select" aria-label=".form-select-sm example">
+                                <option value="desc">Descending</option>
+                                <option value="asc">Ascending</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Of Order Wrapper -->
+            </div>
+        </div>
+    </form>
+
+</div>
+{% endblock %}
