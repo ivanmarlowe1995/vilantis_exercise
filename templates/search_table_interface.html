@@ -16,26 +16,24 @@
     passSearchSize({{ field_list_split|length }});
     genDynamicColName('{{ table_mode }}');
 </script>
+{% set nicenames = col_json_dict['nicenames'] %}
+{% set names = col_json_dict['names'] %}
 <div class="content bg-light text-dark">
 
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">id</th>
-                <th scope="col">User IP Address</th>
-                <th scope="col">Date Created</th>
-                <th scope="col">Request Type</th>
-                <th scope="col">Request Referrer</th>
+                {% for nicename in nicenames %}
+                    <th scope="col">{{ nicename }}</th>
+                {% endfor %}
             </tr>
         </thead>
         <tbody>
         {% for row in data.items %}
             <tr>
-                <td>{{ row.id }}</td>
-                <td>{{ row.user_ip_address }}</td>
-                <td>{{ row.date_created }}</td>
-                <td>{{ row.request_type }}</td>
-                <td>{{ row.request_referrer }}</td>
+                {% for name in names %}
+                    <td>{{ row[name] }}</td>
+                {% endfor %}
             </tr>
         {% endfor %}
         </tbody>
@@ -71,11 +69,9 @@
                             <option value="<" {% if expr_list_split[0]=='<' %} selected {% endif %}><</option>
                         </select>
                         <select name="select_col_1" id="select_col_1" class="form-select" aria-label=".form-select-sm example">
-                            <option value="id" {% if col_list_split[0]=='id' %} selected {% endif %}>id</option>
-                        <option value="user_ip_address" {% if col_list_split[0]=='user_ip_address' %} selected {% endif %}>user_ip_address</option>
-                        <option value="date_created" {% if col_list_split[0]=='date_created' %} selected {% endif %}>date_created</option>
-                        <option value="request_type" {% if col_list_split[0]=='request_type' %} selected {% endif %}>request_type</option>
-                        <option value="request_referrer" {% if col_list_split[0]=='request_referrer' %} selected {% endif %}>request_referrer</option>
+                            {% for name in names %}
+                                <option value="{{ name }}" {% if col_list_split[0]==name %} selected {% endif %}>{{ name }}</option>
+                            {% endfor %}
                         </select>
                     </div>
                 </div>
@@ -104,11 +100,9 @@
                                 <option value="<" {% if expr_value=='<' %} selected {% endif %}><</option>
                             </select>
                             <select class="form-select" name="{{ col_str ~ loop_index_adjusted }}" id="{{ col_str ~ loop_index_adjusted }}">
-                                <option value="id" {% if col_value=='id' %} selected {% endif %}>id</option>
-                                <option value="user_ip_address" {% if col_value=='user_ip_address' %} selected {% endif %}>user_ip_address</option>
-                                <option value="date_created" {% if col_value=='date_created' %} selected {% endif %}>date_created</option>
-                                <option value="request_type" {% if col_value=='request_type' %} selected {% endif %}>request_type</option>
-                                <option value="request_referrer" {% if col_value=='request_referrer' %} selected {% endif %}>request_referrer</option>
+                                {% for name in names %}
+                                    <option value="{{ name }}" {% if col_value==name %} selected {% endif %}>{{ name }}</option>
+                                {% endfor %}
                             </select>&ensp;
                             <a href="#" class="btn btn-danger removeclass" id ="{{ del_str ~ loop_index_adjusted }}">×</a>
                         </div>
@@ -119,11 +113,9 @@
                 <div class="input-group mt-4">
                     <div>
                         <select name="order_col_1" id="order_col_1" class="form-select" aria-label=".form-select-sm example">
-                            <option value="id" {% if col_order_list_split[0]=='id' %} selected {% endif %}>id</option>
-                            <option value="user_ip_address" {% if col_order_list_split[0]=='user_ip_address' %} selected {% endif %}>user_ip_address</option>
-                            <option value="date_created" {% if col_order_list_split[0]=='date_created' %} selected {% endif %}>date_created</option>
-                            <option value="request_type" {% if col_order_list_split[0]=='request_type' %} selected {% endif %}>request_type</option>
-                            <option value="request_referrer" {% if col_order_list_split[0]=='request_referrer' %} selected {% endif %}>request_referrer</option>
+                            {% for name in names %}
+                                <option value="{{ name }}" {% if col_order_list_split[0]==name %} selected {% endif %}>{{ name }}</option>
+                            {% endfor %}
                         </select>
                     </div>
                     <div>
@@ -136,11 +128,9 @@
                 <div class="input-group mt-4">
                     <div>
                         <select name="order_col_2" id="order_col_2" class="form-select" aria-label=".form-select-sm example">
-                            <option value="id" {% if col_order_list_split[1]=='id' %} selected {% endif %}>id</option>
-                            <option value="user_ip_address" {% if col_order_list_split[1]=='user_ip_address' %} selected {% endif %}>user_ip_address</option>
-                            <option value="date_created" {% if col_order_list_split[1]=='date_created' %} selected {% endif %}>date_created</option>
-                            <option value="request_type" {% if col_order_list_split[1]=='request_type' %} selected {% endif %}>request_type</option>
-                            <option value="request_referrer" {% if col_order_list_split[1]=='request_referrer' %} selected {% endif %}>request_referrer</option>
+                            {% for name in names %}
+                                <option value="{{ name }}" {% if col_order_list_split[1]==name %} selected {% endif %}>{{ name }}</option>
+                            {% endfor %}
                         </select>
                     </div>
                     <div>
