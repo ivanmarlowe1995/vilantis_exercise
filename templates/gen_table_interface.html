@@ -8,25 +8,23 @@
 <script type="text/javascript">
     genDynamicColName('{{ table_mode }}');
 </script>
+{% set nicenames = col_json_dict['nicenames'] %}
+{% set names = col_json_dict['names'] %}
 <div class="content bg-light text-dark">
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">id</th>
-                <th scope="col">User IP Address</th>
-                <th scope="col">Date Created</th>
-                <th scope="col">Request Type</th>
-                <th scope="col">Request Referrer</th>
+                {% for nicename in nicenames %}
+                    <th scope="col">{{ nicename }}</th>
+                {% endfor %}
             </tr>
         </thead>
         <tbody>
         {% for row in data.items %}
             <tr>
-                <td>{{ row.id }}</td>
-                <td>{{ row.user_ip_address }}</td>
-                <td>{{ row.date_created }}</td>
-                <td>{{ row.request_type }}</td>
-                <td>{{ row.request_referrer }}</td>
+                {% for name in names %}
+                    <td>{{ row[name] }}</td>
+                {% endfor %}
             </tr>
         {% endfor %}
         </tbody>
@@ -62,11 +60,9 @@
                             <option value="<"><</option>
                         </select>
                         <select name="select_col_1" id="select_col_1" class="form-select" aria-label=".form-select-sm example">
-                            <option value="id">id</option>
-                            <option value="user_ip_address">user_ip_address</option>
-                            <option value="date_created">date_created</option>
-                            <option value="request_type">request_type</option>
-                            <option value="request_referrer">request_referrer</option>
+                            {% for name in names %}
+                                <option value="{{ name }}">{{ name }}</option>
+                            {% endfor %}
                         </select>
                     </div>
                 </div>
@@ -76,11 +72,10 @@
                     <div class="input-group mt-4">
                         <div>
                             <select name="order_col_1" id="order_col_1" class="form-select" aria-label=".form-select-sm example">
-                                <option value="id">id</option>
-                                <option value="user_ip_address">user_ip_address</option>
-                                <option value="date_created">date_created</option>
-                                <option value="request_type">request_type</option>
-                                <option value="request_referrer">request_referrer</option>
+                                {% for name in names %}
+                                    <option value="{{ name }}">{{ name }}</option>
+                                {% endfor %}
+
                             </select>
                         </div>
                         <div>
@@ -93,11 +88,9 @@
                     <div class="input-group mt-4">
                         <div>
                             <select name="order_col_2" id="order_col_2" class="form-select" aria-label=".form-select-sm example">
-                                <option value="id">id</option>
-                                <option value="user_ip_address">user_ip_address</option>
-                                <option value="date_created">date_created</option>
-                                <option value="request_type">request_type</option>
-                                <option value="request_referrer">request_referrer</option>
+                                {% for name in names %}
+                                    <option value="{{ name }}">{{ name }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div>
